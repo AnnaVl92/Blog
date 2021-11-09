@@ -1,10 +1,13 @@
 import React from 'react';
+import Posts from './components/Posts/Posts';
+import {Container} from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
-function App() {
+const App = () => {
   return (
-    <div>
-      p
-    </div>
+    <Container>
+      <Posts />
+    </Container>
   );
 }
 
