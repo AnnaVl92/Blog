@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { Form, Button } from 'react-bootstrap';
 import { useForm } from "react-hook-form";
 import { NewPost } from "../../types/NewPost";
-import { addNewPostData } from "../../redux/dataMethods";
+import { fetchPostsData, addNewPostData } from "../../redux/dataMethods";
 
 const AddPost = () => {
     const {register, handleSubmit} = useForm<NewPost>();
@@ -12,6 +12,7 @@ const AddPost = () => {
     const onSubmit = (data: NewPost) => {
         data.userId = 1;
         dispatch(addNewPostData("https://jsonplaceholder.typicode.com/posts", data));
+        dispatch(fetchPostsData("https://jsonplaceholder.typicode.com/posts"));
     };
 
     return (

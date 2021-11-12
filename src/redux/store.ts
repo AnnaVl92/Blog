@@ -3,10 +3,7 @@ import reducer from "../redux/reducer";
 import thunk from 'redux-thunk';
 import { PostState } from '../types/PostState';
 import { composeWithDevTools } from 'redux-devtools-extension';
-
-const initialState:PostState = {
-    posts: []
-};
+import initialState from "./initialState";
 
 function configureStore(initialState: PostState) {
     return createStore(

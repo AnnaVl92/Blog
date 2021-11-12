@@ -1,12 +1,14 @@
-import { FETCH_POSTS, ADD_NEW_POST } from "./actionTypes";
+import { FETCH_POSTS, ADD_NEW_POST, FETCH_POST_BY_ID, EDIT_POST } from "./actionTypes";
 import { PostState } from "../types/PostState";
-import {FetchPostActionType, AddNewPostActionType} from "../types/IActionTypes";
+import {
+    FetchPostActionType,
+    AddNewPostActionType,
+    FetchPostByIdActionType,
+    editPostActionType
+} from "../types/IActionTypes";
+import initialState from "./initialState";
 
-const initialState:PostState = {
-    posts: []
-};
-
-type ActionType = FetchPostActionType | AddNewPostActionType;
+type ActionType = FetchPostActionType | AddNewPostActionType | FetchPostByIdActionType | editPostActionType;
 
 const reducer = (state = initialState, action: ActionType): PostState => {
     switch (action.type) {
@@ -15,9 +17,15 @@ const reducer = (state = initialState, action: ActionType): PostState => {
 
         case ADD_NEW_POST:
             if (state.posts) {
-                return {posts: [...state.posts, action.payload]}
+                return {...state, posts: [...state.posts, action.payload]}
             }
-            return {posts: [action.payload]}
+            return {...state, posts: [action.payload]}
+
+        case FETCH_POST_BY_ID:
+            return {...state, currentPost: [action.payload]}
+
+        case EDIT_POST:
+            
 
         default:
             return state;
