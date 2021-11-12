@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import IPost from '../../types/IPost';
 import {PostState} from "../../types/PostState";
-import fetchPostsData from "../../redux/fetchPostsData";
+import {fetchPostsData} from "../../redux/dataMethods";
 import { Row, Col, Card } from 'react-bootstrap';
 
 const Posts = () => {
@@ -11,7 +11,7 @@ const Posts = () => {
 
   useEffect(() => {
     dispatch(fetchPostsData("https://jsonplaceholder.typicode.com/posts"));
-  });
+  }, [dispatch]);
   
   return (
     <Row md={1} className="g-4">
@@ -21,7 +21,9 @@ const Posts = () => {
         return (
           <Col key={id}>
             <Card>
-              <Card.Header>{title}</Card.Header>
+              <Card.Header>
+                {title}
+              </Card.Header>
               <Card.Body>
                 <Card.Text>
                   {body}
