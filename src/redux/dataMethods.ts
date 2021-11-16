@@ -30,4 +30,12 @@ export function fetchPostByIdData(url:string) {
             .then((response) => response.json())
             .then((post) => dispatch(fetchPostById(post)));
     }
+};
+
+export function deletePostData(url:string) {
+    return (dispatch:Dispatch) => {
+        fetch(url, {
+            method: 'DELETE',
+        })
+    }
 }

@@ -1,14 +1,15 @@
-import { FETCH_POSTS, ADD_NEW_POST, FETCH_POST_BY_ID, EDIT_POST } from "./actionTypes";
+import { FETCH_POSTS, ADD_NEW_POST, FETCH_POST_BY_ID, EDIT_POST, DELETE_POST } from "./actionTypes";
 import { PostState } from "../types/PostState";
 import {
     FetchPostActionType,
     AddNewPostActionType,
     FetchPostByIdActionType,
-    editPostActionType
+    EditPostActionType,
+    DeletePostActionType
 } from "../types/IActionTypes";
 import initialState from "./initialState";
 
-type ActionType = FetchPostActionType | AddNewPostActionType | FetchPostByIdActionType | editPostActionType;
+type ActionType = FetchPostActionType | AddNewPostActionType | FetchPostByIdActionType | EditPostActionType | DeletePostActionType;
 
 const reducer = (state = initialState, action: ActionType): PostState => {
     switch (action.type) {
@@ -22,10 +23,16 @@ const reducer = (state = initialState, action: ActionType): PostState => {
             return {...state, posts: [action.payload]}
 
         case FETCH_POST_BY_ID:
-            return {...state, currentPost: [action.payload]}
+            return {...state, currentPost: action.payload}
 
-        case EDIT_POST:
-            
+        // case EDIT_POST:
+        case DELETE_POST:
+            if (state.posts) {
+                const posts = state.posts.filter(post => post.id !== action.payload);
+                console.log(action.payload);
+                return {posts: [...posts]};
+            };
+            return {...state}
 
         default:
             return state;

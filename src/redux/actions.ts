@@ -1,4 +1,4 @@
-import { FETCH_POSTS, ADD_NEW_POST, FETCH_POST_BY_ID, EDIT_POST } from "./actionTypes";
+import { FETCH_POSTS, ADD_NEW_POST, FETCH_POST_BY_ID, EDIT_POST, DELETE_POST } from "./actionTypes";
 import { PostState } from "../types/PostState";
 import { NewPost } from "../types/NewPost";
 import IPost from "../types/IPost";
@@ -27,6 +27,14 @@ export function fetchPostById(payload:IPost['id']) {
 export function editPost(payload:IPost) {
     return {
         type: EDIT_POST,
+        payload
+    }
+}
+
+export function deletePost(payload:IPost['id']) {
+    console.log(payload);
+    return {
+        type: DELETE_POST,
         payload
     }
 }
