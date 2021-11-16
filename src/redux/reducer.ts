@@ -25,11 +25,22 @@ const reducer = (state = initialState, action: ActionType): PostState => {
         case FETCH_POST_BY_ID:
             return {...state, currentPost: action.payload}
 
-        // case EDIT_POST:
+        case EDIT_POST:
+            if (state.posts) {
+                const posts = state.posts.map(post => {
+                    if (post.id === action.payload.id) {
+                        post.title = action.payload.title;
+                        post.body = action.payload.body;
+                    };
+                    return post;
+                });
+                return {posts: [...posts]};
+            };
+            return {...state};
+
         case DELETE_POST:
             if (state.posts) {
                 const posts = state.posts.filter(post => post.id !== action.payload);
-                console.log(action.payload);
                 return {posts: [...posts]};
             };
             return {...state}

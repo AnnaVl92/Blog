@@ -1,6 +1,7 @@
 import { Dispatch } from 'redux';
 import { NewPost } from '../types/NewPost';
-import { fetchPosts, addNewPost, fetchPostById } from './actions';
+import { UpdatedPost } from '../types/UpdatedPost';
+import { fetchPosts, addNewPost, fetchPostById, editPost } from './actions';
 
 export function fetchPostsData(url:string) {
     return (dispatch:Dispatch) => {
@@ -32,10 +33,24 @@ export function fetchPostByIdData(url:string) {
     }
 };
 
+export function editPostData(url:string, data: UpdatedPost) {
+    return (dispatch:Dispatch) => {
+        fetch(url, {
+            method: 'PUT',
+            body: JSON.stringify(data),
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+            },
+        })
+            .then((response) => response.json())
+            .then((post) => dispatch(editPost(post)));
+    }
+};
+
 export function deletePostData(url:string) {
     return (dispatch:Dispatch) => {
         fetch(url, {
             method: 'DELETE',
         })
     }
-}
+};

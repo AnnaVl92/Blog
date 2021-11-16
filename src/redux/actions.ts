@@ -32,7 +32,6 @@ export function editPost(payload:IPost) {
 }
 
 export function deletePost(payload:IPost['id']) {
-    console.log(payload);
     return {
         type: DELETE_POST,
         payload

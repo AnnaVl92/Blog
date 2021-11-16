@@ -1,19 +1,38 @@
-import React from 'react';
-import { useDispatch, useSelector } from "react-redux";
+import React, {useState, useEffect, useMemo} from 'react';
+import { useDispatch} from "react-redux";
 import { Form, Button, Modal } from 'react-bootstrap';
 import { useForm } from "react-hook-form";
-import { NewPost } from '../../types/NewPost';
 import IModal from "../../types/IModal";
-import { PostState } from '../../types/PostState';
+import { editPostData } from '../../redux/dataMethods';
+import { UpdatedPost } from '../../types/UpdatedPost';
 
 const EditPost = (props:IModal) => {
-    const {register, handleSubmit} = useForm<NewPost>();
-    const handleClose = () => props.setShow(false);
+    const handleClose = () => {
+        props.setShow(false);
+    };
+    const defaultPost = { title: "", body: "" };
     const dispatch = useDispatch();
 
-    const {curPost} = {curPost: useSelector((state:PostState) => state.currentPost)};
-    const onSubmit = (data: NewPost) => {
-        console.log("gg");
+    const [postText, setPost] = useState(defaultPost);
+
+    const { register, handleSubmit, reset} = useForm({
+        defaultValues: useMemo(() => {
+            return props.post;
+          }, [props]),
+    });
+
+    useEffect(() => {
+        setPost({ title: props.post.title, body: props.post.body});
+    }, [props.post.body, props.post.title]);
+
+    useEffect(() => {
+        reset(postText);
+    }, [postText, reset]);
+
+    const onSubmit = (data: UpdatedPost) => {
+        data.id = props.post.id;
+        data.userId = props.post.userId;
+        dispatch(editPostData(`https://jsonplaceholder.typicode.com/posts/${data.id}`, data));
     };
     
     return (
@@ -27,7 +46,6 @@ const EditPost = (props:IModal) => {
                         <Form.Label>Title</Form.Label>
                         <Form.Control
                             type="text"
-                            defaultValue={curPost?.title}
                             {...register("title")}
                         />
                     </Form.Group>
@@ -35,7 +53,6 @@ const EditPost = (props:IModal) => {
                         <Form.Label>Text</Form.Label>
                         <Form.Control
                             type="text"
-                            defaultValue={curPost?.body}
                             {...register("body")}
                         />
                     </Form.Group>
