@@ -1,7 +1,8 @@
 import { PostState } from "../types/PostState";
 
 const initialState:PostState = {
-    posts: []
+    posts: [],
+    visiblePostsAmount: 5
 };
 
 export default initialState;

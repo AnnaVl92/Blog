@@ -1,4 +1,4 @@
-import { FETCH_POSTS, ADD_NEW_POST, FETCH_POST_BY_ID, EDIT_POST, DELETE_POST } from "./actionTypes";
+import { FETCH_POSTS, ADD_NEW_POST, FETCH_POST_BY_ID, EDIT_POST, DELETE_POST, LOAD_MORE } from "./actionTypes";
 import { PostState } from "../types/PostState";
 import { NewPost } from "../types/NewPost";
 import IPost from "../types/IPost";
@@ -15,25 +15,31 @@ export function addNewPost(payload:NewPost) {
         type: ADD_NEW_POST,
         payload
     }
-}
+};
 
 export function fetchPostById(payload:IPost['id']) {
     return {
         type: FETCH_POST_BY_ID,
         payload
     }
-}
+};
 
 export function editPost(payload:IPost) {
     return {
         type: EDIT_POST,
         payload
     }
-}
+};
 
 export function deletePost(payload:IPost['id']) {
     return {
         type: DELETE_POST,
         payload
     }
-}
+};
+
+export function loadMore() {
+    return {
+        type: LOAD_MORE
+    }
+};
