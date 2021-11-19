@@ -21,6 +21,7 @@ const EditPost = (props:IModal) => {
           }, [props]),
     });
 
+    //2 useEffect for different actions
     useEffect(() => {
         setPost({ title: props.post.title, body: props.post.body});
     }, [props.post.body, props.post.title]);
